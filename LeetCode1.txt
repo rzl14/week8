@@ -1,0 +1,36 @@
+class Solution {
+public:
+    const int N = 20011;
+    pair<int, int> h[20011];
+    int find(int x) {
+        int k = (x % N + N) % N;
+        while (h[k].first != 0x3f3f3f3f && h[k].first != x) {
+            k ++;
+            if (k == N) k = 0;
+        }
+        return k;
+    }
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // map<int, int> a;
+        // int t, i, n = nums.size();
+        // for (i = 0; i < n; i ++) {
+        //     t = target - nums[i];
+        //     if (a.count(t)) break;
+        //     a[nums[i]] = i;
+        // }
+        // return {a[t], i};
+
+        memset(h, 0x3f, sizeof h);
+        int n = nums.size(), t, i = 0, p;
+        while (i < n) {
+            t = target - nums[i];
+            p = find(t);
+            if (h[p].second != 0x3f3f3f3f) break;
+            p = find(nums[i]);
+            h[p].first = nums[i];
+            h[p].second = i;
+            i ++;
+        }
+        return {h[p].second, i};
+    };
+};

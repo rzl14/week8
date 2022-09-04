@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int left = 0, right = 0, p = 0, l = 0, r = 0, n = s.size(), i, j;
+        for (p = 0; p < n; p ++) {
+            left = p, right = p + 1;
+            while (left >= 0 && right < n && s[left] == s[right]) left --, right ++;
+            if (right - left > r - l + 2) r = right - 1, l = left + 1;
+            left = p, right = p + 2;
+            while (left >= 0 && right < n && s[left] == s[right]) left --, right ++;
+            if (right - left > r - l + 2) r = right - 1, l = left + 1;
+        }
+
+        char c[s.size() + 1];
+        for (i = 0, j = l; j <= r; j ++, i ++) c[i] = s[j];
+        c[i] = 0;
+        return c;
+    }
+};

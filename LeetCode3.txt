@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // map<char, int> a;
+        // int n = s.size(), m = 0;
+        // for (int i = 0, j = 0; i < n; i ++) {
+        //     if (a.count(s[i])) while (j <= a[s[i]]) a.erase(s[j ++]);
+        //     a[s[i]] = i;
+        //     m = m < i - j + 1 ? i - j + 1 : m;
+        // }
+        // return m;
+
+        int st[128];
+        memset(st, -1, sizeof st);
+        int n = s.size(), m = 0;
+        for (int i = 0, j = 0; i < n; i ++) {
+            if (st[s[i]] >= 0) while (j <= st[s[i]]) st[s[j ++]] = -1;
+            st[s[i]] = i;
+            m = m < i - j + 1 ? i - j + 1 : m;
+        }
+        return m;
+    }
+};
